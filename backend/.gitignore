@@ -14,11 +14,11 @@ dist-ssr
 .env
 .env.*.local
 .env
-node_modules/
 node_modules
 .env
 backend/.env
 videos
+node_modules/
 backend/.env
 node_modules/
 
