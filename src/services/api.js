@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API = axios.create({
   baseURL: "http://localhost:5000/api",
-  timeout: 45000
+  timeout: 20000
 });
 
 export const fetchStock = (ticker) => API.get(`/stock/${ticker}`);

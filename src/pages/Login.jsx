@@ -1,6 +1,6 @@
 import { LineChart, ShieldCheck } from "lucide-react";
 import { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
@@ -8,16 +8,13 @@ export default function Login() {
   const [password, setPassword] = useState("password123");
   const { login } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
-
-  const from = location.state?.from || "/dashboard";
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!email || !password) return;
 
     login({ email });
-    navigate(from, { replace: true });
+    navigate("/", { replace: true });
   };
 
   return (

@@ -34,41 +34,76 @@ export default function Dashboard() {
   const [videoData, setVideoData] = useState(null);
   const [isVideoLoading, setIsVideoLoading] = useState(true);
   const [videoStatusMessage, setVideoStatusMessage] = useState("");
+  const [isDashboardLoading, setIsDashboardLoading] = useState(true);
   const [searchParams] = useSearchParams();
 
   const ticker = (searchParams.get("ticker") || "RELIANCE").toUpperCase();
 
   useEffect(() => {
+    let isMounted = true;
+
     async function loadData() {
       try {
-        setIsVideoLoading(true);
-        const [stockRes, newsRes] = await Promise.all([fetchStock(ticker), fetchNews(ticker)]);
-        setStock(stockRes.data);
-        setNews(newsRes.data);
+        if (isMounted) {
+          setIsDashboardLoading(true);
+          setIsVideoLoading(true);
+          setVideoData(null);
+          setVideoStatusMessage("");
+        }
 
-        const summaryRes = await generateSummary({ stock: stockRes.data, news: newsRes.data });
-        const videoRes = await generateVideo({ script: summaryRes.data.script, stock: stockRes.data, ticker });
+        const [stockResult, newsResult] = await Promise.allSettled([fetchStock(ticker), fetchNews(ticker)]);
 
-        setVideoData(videoRes.data);
-        setVideoStatusMessage(videoRes.data?.message || "");
+        if (stockResult.status !== "fulfilled") {
+          throw stockResult.reason;
+        }
+
+        const stockData = stockResult.value.data;
+        const newsData = newsResult.status === "fulfilled" ? newsResult.value.data : [];
+
+        if (!isMounted) return;
+        setStock(stockData);
+        setNews(newsData);
+        setIsDashboardLoading(false);
+
+        try {
+          const summaryRes = await generateSummary({ stock: stockData, news: newsData });
+          const videoRes = await generateVideo({ script: summaryRes.data.script, stock: stockData, ticker });
+
+          if (!isMounted) return;
+          setVideoData(videoRes.data);
+          setVideoStatusMessage(videoRes.data?.message || "");
+        } catch (videoError) {
+          console.error(videoError);
+          if (isMounted) {
+            setVideoStatusMessage("Video generation is taking longer than expected. Please try again.");
+          }
+        } finally {
+          if (isMounted) setIsVideoLoading(false);
+        }
       } catch (err) {
         console.error(err);
-        setVideoStatusMessage("We couldn't generate your video right now. Please retry in a moment.");
-      } finally {
-        setIsVideoLoading(false);
+        if (isMounted) {
+          setIsDashboardLoading(false);
+          setIsVideoLoading(false);
+          setVideoStatusMessage("We couldn't load dashboard data. Please retry in a moment.");
+        }
       }
     }
 
     loadData();
+    return () => {
+      isMounted = false;
+    };
   }, [ticker]);
 
-  if (!stock) return <div className="p-10 text-slate-600">Loading dashboard...</div>;
+  if (isDashboardLoading) return <div className="p-10 text-slate-600">Loading dashboard...</div>;
+  if (!stock) return <div className="p-10 text-rose-600">Unable to load stock details.</div>;
 
   const intradayData = buildIntradaySeries(stock);
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <div className="mx-auto max-w-7xl px-6 py-10 lg:flex lg:gap-8">
+    <div className="min-h-[calc(100vh-74px)] bg-slate-100">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-6 py-8 lg:grid-cols-[1.25fr,1fr]">
         <div>
           <div className="mb-5 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
             <p className="text-sm text-slate-500">Tracking</p>
