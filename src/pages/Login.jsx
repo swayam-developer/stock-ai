@@ -22,7 +22,7 @@ export default function Login() {
 
   return (
     <div className="mx-auto mt-12 grid max-w-5xl gap-8 px-6 lg:grid-cols-2 lg:items-center">
-      <section className="rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50 via-indigo-50 to-cyan-50 p-8 shadow-sm">
+      <section className="rounded-2xl border border-blue-100 bg-blue-50 p-8 shadow-sm">
         <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white/80 px-3 py-1 text-xs font-semibold text-blue-700">
           <LineChart className="size-4" />
           Market intelligence platform
