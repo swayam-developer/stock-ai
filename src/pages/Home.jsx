@@ -43,7 +43,7 @@ export default function Home() {
             onClick={handleSearch}
             className="rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700"
           >
-            Open dashboard
+            Search
           </button>
         </div>
       </section>
