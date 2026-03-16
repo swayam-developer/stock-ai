@@ -1,10 +1,10 @@
+import { CandlestickChart } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { fetchStock, fetchNews, generateSummary, generateVideo } from "../services/api";
-
-import StockChart from "../components/StockChart";
 import NewsList from "../components/NewsList";
+import StockChart from "../components/StockChart";
 import VideoPlayer from "../components/VideoPlayer";
+import { fetchStock, fetchNews, generateSummary, generateVideo } from "../services/api";
 
 function buildIntradaySeries(stock) {
   const base = stock.price || 100;
@@ -67,20 +67,24 @@ export default function Dashboard() {
   const intradayData = buildIntradaySeries(stock);
 
   return (
-    <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-6 py-8 lg:grid-cols-2">
-      <div>
-        <div className="mb-5 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-          <p className="text-slate-500 text-sm">Tracking</p>
-          <h1 className="text-3xl font-semibold text-slate-900">{stock.symbol}</h1>
-          <p className="mt-1 text-slate-600">₹{stock.price} · {stock.change?.toFixed(2)}%</p>
+    <div className="min-h-[calc(100vh-74px)] bg-gradient-to-b from-slate-50 via-blue-50 to-indigo-50">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-6 py-8 lg:grid-cols-[1.25fr,1fr]">
+        <div>
+          <div className="mb-5 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <p className="text-sm text-slate-500">Tracking</p>
+            <h1 className="mt-1 flex items-center gap-2 text-3xl font-semibold text-slate-900"><CandlestickChart className="size-8 text-blue-600" />{stock.symbol}</h1>
+            <p className="mt-2 text-slate-600">
+              ₹{stock.price} · <span className={stock.change >= 0 ? "text-emerald-600" : "text-rose-600"}>{stock.change?.toFixed(2)}%</span>
+            </p>
+          </div>
+
+          <StockChart data={intradayData} />
+          <NewsList news={news} />
         </div>
 
-        <StockChart data={intradayData} />
-        <NewsList news={news} />
-      </div>
-
-      <div className="space-y-6">
-        <VideoPlayer videoData={videoData} isLoading={isVideoLoading} statusMessage={videoStatusMessage} />
+        <div className="space-y-6">
+          <VideoPlayer videoData={videoData} isLoading={isVideoLoading} statusMessage={videoStatusMessage} />
+        </div>
       </div>
     </div>
   );

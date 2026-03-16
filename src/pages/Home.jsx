@@ -1,3 +1,4 @@
+import { Sparkles, Video } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
@@ -18,9 +19,9 @@ export default function Home() {
   return (
     <main className="mx-auto grid max-w-7xl gap-8 px-6 py-16 md:grid-cols-2 md:items-center">
       <section>
-        <p className="text-sm font-medium text-slate-500">Market Briefs for everyday investors</p>
-        <h1 className="mt-3 text-4xl font-bold leading-tight text-slate-900">Turn live stock data into a concise narrated video update.</h1>
-        <p className="mt-4 max-w-xl text-slate-600">Get a practical dashboard with chart insights, latest headlines, and a generated video summary from the Groq script pipeline.</p>
+        <p className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-sm font-medium text-blue-700"><Sparkles className="size-4" />Market Briefs for investors</p>
+        <h1 className="mt-4 text-4xl font-bold leading-tight text-slate-900">Turn live stock data into a concise narrated video update.</h1>
+        <p className="mt-4 max-w-xl text-slate-600">Get a practical dashboard with chart insights, latest headlines, and generated video summary from the Groq script pipeline.</p>
 
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <input
@@ -28,14 +29,14 @@ export default function Home() {
             value={ticker}
             onChange={(e) => setTicker(e.target.value)}
             placeholder="Enter ticker"
-            className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3"
+            className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
           />
-          <button onClick={handleSearch} className="rounded-lg bg-slate-900 px-6 py-3 font-semibold text-white hover:bg-slate-800">Open dashboard</button>
+          <button onClick={handleSearch} className="rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700">Open dashboard</button>
         </div>
       </section>
 
-      <section className="rounded-xl border border-slate-200 bg-white p-7 shadow-sm">
-        <h2 className="text-xl font-semibold text-slate-900">Included in one flow</h2>
+      <section className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
+        <h2 className="flex items-center gap-2 text-xl font-semibold text-slate-900"><Video className="size-5 text-blue-600" />Included in one flow</h2>
         <ul className="mt-4 space-y-2 text-slate-600">
           <li>• Login-protected dashboard</li>
           <li>• Advanced chart + news context</li>
