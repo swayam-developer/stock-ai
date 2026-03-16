@@ -1,47 +1,48 @@
+import { Sparkles, Video } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function Home() {
-
-  const [ticker,setTicker] = useState("");
+  const [ticker, setTicker] = useState("RELIANCE");
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   const handleSearch = () => {
-    if(!ticker) return;
-    navigate(`/dashboard?ticker=${ticker}`);
+    if (!ticker) return;
+    const target = `/dashboard?ticker=${encodeURIComponent(ticker.toUpperCase())}`;
+
+    if (isAuthenticated) navigate(target);
+    else navigate("/login", { state: { from: target } });
   };
 
   return (
+    <main className="mx-auto grid max-w-7xl gap-8 px-6 py-16 md:grid-cols-2 md:items-center">
+      <section>
+        <p className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-sm font-medium text-blue-700"><Sparkles className="size-4" />Market Briefs for investors</p>
+        <h1 className="mt-4 text-4xl font-bold leading-tight text-slate-900">Turn live stock data into a concise narrated video update.</h1>
+        <p className="mt-4 max-w-xl text-slate-600">Get a practical dashboard with chart insights, latest headlines, and generated video summary from the Groq script pipeline.</p>
 
-    <div className="flex flex-col items-center mt-32">
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <input
+            type="text"
+            value={ticker}
+            onChange={(e) => setTicker(e.target.value)}
+            placeholder="Enter ticker"
+            className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+          />
+          <button onClick={handleSearch} className="rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700">Open dashboard</button>
+        </div>
+      </section>
 
-      <h1 className="text-4xl font-bold mb-6">
-        AI Stock Market Brief Generator
-      </h1>
-
-      <p className="text-gray-400 mb-8">
-        Get AI-powered 90-second stock analysis videos
-      </p>
-
-      <div className="flex gap-4">
-
-        <input
-          type="text"
-          placeholder="Enter ticker (RELIANCE, TCS...)"
-          className="px-6 py-3 rounded-lg bg-slate-800 border border-slate-700"
-          value={ticker}
-          onChange={(e)=>setTicker(e.target.value)}
-        />
-
-        <button
-          onClick={handleSearch}
-          className="bg-blue-500 px-6 py-3 rounded-lg"
-        >
-          Generate Brief
-        </button>
-
-      </div>
-
-    </div>
+      <section className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
+        <h2 className="flex items-center gap-2 text-xl font-semibold text-slate-900"><Video className="size-5 text-blue-600" />Included in one flow</h2>
+        <ul className="mt-4 space-y-2 text-slate-600">
+          <li>• Login-protected dashboard</li>
+          <li>• Advanced chart + news context</li>
+          <li>• Auto-generated scripted video with scene timing</li>
+        </ul>
+      </section>
+    </main>
   );
 }
