@@ -25,6 +25,8 @@ router.post("/generate", async (req, res) => {
     ];
 
     res.json({
+      mode: "metadata",
+      message: "Video scene data generated. MP4 rendering is not configured in this endpoint.",
       hook: scenes[0] || "",
       snapshot: scenes[1] || "",
       news: scenes[2] || "",
