@@ -1,4 +1,4 @@
-export default function VideoPlayer({ videoUrl }) {
+export default function VideoPlayer({ videoUrl, isLoading, statusMessage }) {
 
   return (
 
@@ -22,12 +22,14 @@ export default function VideoPlayer({ videoUrl }) {
 
         </video>
 
-      ) : (
-
+      ) : isLoading ? (
         <div className="text-gray-400">
           Generating AI video...
         </div>
-
+      ) : (
+        <div className="text-amber-300 text-sm leading-relaxed">
+          {statusMessage || "Video generation is not available right now."}
+        </div>
       )}
 
     </div>

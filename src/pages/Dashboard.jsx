@@ -11,6 +11,8 @@ export default function Dashboard(){
   const [news,setNews] = useState([]);
   const [script,setScript] = useState("");
   const [videoUrl,setVideoUrl] = useState("");
+  const [isVideoLoading, setIsVideoLoading] = useState(true);
+  const [videoStatusMessage, setVideoStatusMessage] = useState("");
 
   const ticker = "RELIANCE";
 
@@ -20,8 +22,10 @@ export default function Dashboard(){
 
       try{
 
-        const stockRes = await fetchStock(ticker);
-        const newsRes = await fetchNews(ticker);
+        const [stockRes, newsRes] = await Promise.all([
+          fetchStock(ticker),
+          fetchNews(ticker)
+        ]);
 
         setStock(stockRes.data);
         setNews(newsRes.data);
@@ -36,13 +40,24 @@ export default function Dashboard(){
         setScript(aiScript);
 
         const videoRes = await generateVideo({
-          script: aiScript
+          script: aiScript,
+          stock: stockRes.data
         });
 
-        setVideoUrl(videoRes.data.videoUrl);
+        if (videoRes.data?.videoUrl) {
+          setVideoUrl(videoRes.data.videoUrl);
+          setVideoStatusMessage("");
+        } else {
+          setVideoStatusMessage(
+            videoRes.data?.message || "Video render URL was not returned by backend."
+          );
+        }
 
       }catch(err){
         console.error(err);
+        setVideoStatusMessage("Video generation failed. Please try again.");
+      } finally {
+        setIsVideoLoading(false);
       }
 
     }
@@ -71,7 +86,11 @@ export default function Dashboard(){
 
       <div className="space-y-6">
 
-        <VideoPlayer videoUrl={videoUrl}/>
+        <VideoPlayer
+          videoUrl={videoUrl}
+          isLoading={isVideoLoading}
+          statusMessage={videoStatusMessage}
+        />
 
         <div className="bg-slate-800 p-6 rounded-xl">
 
