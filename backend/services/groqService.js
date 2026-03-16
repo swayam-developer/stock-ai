@@ -6,46 +6,39 @@ const groq = new OpenAI({
 });
 
 export async function generateScript(stock, news) {
-
   try {
-
-    const headlines = news?.map(n => n.title).join("\n") || "No major news.";
+    const headlines = news?.map((n, idx) => `${idx + 1}. ${n.title}`).join("\n") || "No major news.";
 
     const prompt = `
-Create a 90 second stock market video script.
+You are creating a concise voice-over script for a 90-second stock video.
+Return EXACTLY 5 lines. No numbering. No markdown.
+Each line should be 18-28 words and correspond to this order:
+1) Hook
+2) Stock Snapshot
+3) Market News
+4) Beginner Takeaway
+5) Call To Action
 
-Hook (0-10 sec)
-Stock Snapshot (10-30 sec)
-What's Happening (30-60 sec)
-Beginner Takeaway (60-80 sec)
-Call to Action (80-90 sec)
-
-Stock Data:
+Use this stock context:
+Ticker: ${stock?.symbol}
 Price: ${stock?.price}
 High: ${stock?.high}
 Low: ${stock?.low}
-Change: ${stock?.change}
+Change %: ${stock?.change}
 
-News:
+News headlines:
 ${headlines}
-
-Explain for beginner investors.
 `;
 
     const completion = await groq.chat.completions.create({
       model: "openai/gpt-oss-120b",
-      messages: [
-        { role: "user", content: prompt }
-      ]
+      temperature: 0.5,
+      messages: [{ role: "user", content: prompt }]
     });
 
     return completion.choices[0].message.content;
-
   } catch (error) {
-
     console.error("Groq Error:", error);
     throw error;
-
   }
-
 }
