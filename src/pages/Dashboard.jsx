@@ -67,8 +67,8 @@ export default function Dashboard() {
   const intradayData = buildIntradaySeries(stock);
 
   return (
-    <div className="min-h-[calc(100vh-74px)] bg-slate-100">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-6 py-8 lg:grid-cols-[1.25fr,1fr]">
+    <div className="min-h-screen bg-slate-50">
+      <div className="mx-auto max-w-7xl px-6 py-10 lg:flex lg:gap-8">
         <div>
           <div className="mb-5 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
             <p className="text-sm text-slate-500">Tracking</p>

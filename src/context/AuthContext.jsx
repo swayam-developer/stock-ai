@@ -15,7 +15,6 @@ export function AuthProvider({ children }) {
       id: crypto.randomUUID(),
       name: email.split("@")[0],
       email,
-      avatar: `https://api.dicebear.com/9.x/thumbs/svg?seed=${encodeURIComponent(email)}`
     };
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(profile));

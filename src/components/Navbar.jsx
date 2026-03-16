@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
-  const { isAuthenticated, logout, user } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -17,15 +17,11 @@ export default function Navbar() {
         <Link to="/" className="text-xl font-bold tracking-tight text-slate-900">FinVise</Link>
 
         <nav className="flex items-center gap-2 text-sm text-slate-700">
-          <Link to="/" className="inline-flex items-center gap-1 rounded-md px-3 py-2 hover:bg-slate-100"><House className="size-4" />Home</Link>
+          <Link to="/" className="inline-flex items-center gap-1 rounded-md px-3 py-2 hover:bg-slate-100"><House className="size-2" />Home</Link>
 
           {isAuthenticated ? (
             <>
-              <Link to="/dashboard" className="inline-flex items-center gap-1 rounded-md px-3 py-2 hover:bg-slate-100"><LayoutDashboard className="size-4" />Dashboard</Link>
-              <Link to="/profile" className="inline-flex items-center gap-2 rounded-md border border-slate-200 px-3 py-2 hover:bg-slate-50">
-                {user?.avatar ? <img src={user.avatar} alt={user.name} className="size-6 rounded-full" /> : <UserCircle2 className="size-5 text-slate-500" />}
-                <span>{user?.name || "Profile"}</span>
-              </Link>
+              <Link to="/dashboard" className="inline-flex items-center gap-1 rounded-md px-3 py-2 hover:bg-slate-100"><LayoutDashboard className="size-2" />Dashboard</Link>
               <button onClick={handleLogout} className="inline-flex items-center gap-1 rounded-md bg-slate-900 px-3 py-2 font-medium text-white hover:bg-slate-800">
                 <LogOut className="size-4" />
                 Logout
