@@ -43,7 +43,7 @@ router.post("/generate", async (req, res) => {
       voiceText: text,
       animation: ANIMATIONS[idx],
       durationMs: SCENE_DURATION_MS[idx],
-      subtext: idx === 1 ? `${ticker || stock?.symbol || "Stock"} at ₹${stock?.price ?? "--"}` : "AI-generated financial briefing"
+      subtext: idx === 1 ? `${ticker || stock?.symbol || "Stock"} at ₹${stock?.price ?? "--"}` : "Daily market briefing"
     }));
 
     return res.json({

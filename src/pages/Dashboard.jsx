@@ -24,11 +24,11 @@ function buildIntradaySeries(stock) {
     time,
     price: base + delta,
     volume,
-    change: ((delta / base) * 100)
+    change: (delta / base) * 100
   }));
 }
 
-export default function Dashboard(){
+export default function Dashboard() {
   const [stock, setStock] = useState(null);
   const [news, setNews] = useState([]);
   const [videoData, setVideoData] = useState(null);
@@ -38,9 +38,9 @@ export default function Dashboard(){
 
   const ticker = (searchParams.get("ticker") || "RELIANCE").toUpperCase();
 
-  useEffect(()=>{
-    async function loadData(){
-      try{
+  useEffect(() => {
+    async function loadData() {
+      try {
         setIsVideoLoading(true);
         const [stockRes, newsRes] = await Promise.all([fetchStock(ticker), fetchNews(ticker)]);
         setStock(stockRes.data);
@@ -62,17 +62,17 @@ export default function Dashboard(){
     loadData();
   }, [ticker]);
 
-  if(!stock) return <div className="p-10">Loading dashboard...</div>;
+  if (!stock) return <div className="p-10 text-slate-600">Loading dashboard...</div>;
 
   const intradayData = buildIntradaySeries(stock);
 
-  return(
+  return (
     <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-6 py-8 lg:grid-cols-2">
       <div>
-        <div className="mb-5 rounded-2xl border border-slate-700 bg-slate-900/80 p-5">
-          <p className="text-slate-400 text-sm">Tracking</p>
-          <h1 className="text-3xl font-bold">{stock.symbol}</h1>
-          <p className="mt-1 text-slate-300">₹{stock.price} · {stock.change?.toFixed(2)}%</p>
+        <div className="mb-5 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <p className="text-slate-500 text-sm">Tracking</p>
+          <h1 className="text-3xl font-semibold text-slate-900">{stock.symbol}</h1>
+          <p className="mt-1 text-slate-600">₹{stock.price} · {stock.change?.toFixed(2)}%</p>
         </div>
 
         <StockChart data={intradayData} />
