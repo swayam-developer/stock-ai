@@ -19,21 +19,21 @@ Screenshots
 
 Example:
 
-Home Page
+1. Home Page
 ![alt text](<Screenshot (132).png>)
 
-Stock Dashboard
+2. Stock Dashboard
 ![alt text](<Screenshot (133).png>)
 
- News Section
+ 3. News Section
  ![alt text](<Screenshot (134).png>)
 
-Generated Video Player
+4. Generated Video Player
 ![alt text](<Screenshot (135).png>)
 
-Tech Stack
+Tech Stack [Full Stack]
 
-Frontend
+1. Frontend
 
 React
 
@@ -45,7 +45,7 @@ Chart.js / Recharts
 
 Tailwind / CSS
 
-Backend
+2. Backend
 
 Node.js
 
@@ -59,23 +59,25 @@ Remotion for video generation
 
 Deployment
 
-Frontend: Vercel
+1. Frontend: Vercel
 
-Backend: Render
+2. Backend: Render
+
+3. UptimeRobot - keep server alive 
 
 APIs Used to Fetch Data
 
 Stock Market Data
 
-Yahoo Finance 
+1. Yahoo Finance 
 
-Financial News
+2. Financial News
 
 GNews API
 
 https://gnews.io
 
-AI Model
+3. AI Model
 
 Groq LLM
 
@@ -118,12 +120,12 @@ http://localhost:5000
 
 Future Improvements
 
-Real-time stock streaming
+1. Real-time stock streaming
 
-AI sentiment analysis of financial news
+2. AI sentiment analysis of financial news
 
-More advanced chart indicators
+3. More advanced chart indicators
 
-Portfolio tracking for users
+4. Portfolio tracking for users
 
-Improved AI video visualization
+5. Improved AI video visualization
