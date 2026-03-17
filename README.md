@@ -1,13 +1,22 @@
-FinVise — AI Stock Insights & Video Generator
+## FinVise — AI Stock Insights & Video Generator
 
 FinVise is a full-stack fintech application that converts stock market data and financial news into concise AI-generated insights and narrated video summaries. The platform allows users to search for a stock ticker and instantly view price charts, related news, and an AI-generated explanation of the market trend. It demonstrates integration of financial APIs, LLM-based summarization, and automated video generation in a single dashboard.
 
-Live Application Link
+## ⚠️ Current Limitation
+
+This version of the application supports a limited set of stock tickers:
+
+- TCS  
+- RELIANCE  
+
+The restriction is intentional for demonstration and API usage control. The system is designed to be easily extendable to support multiple tickers with dynamic API integration.
+
+## Live Application Link
 
 https://stock-ai-delta-dusky.vercel.app/
 
 
-GitHub Repository
+## GitHub Repository
 
 https://github.com/swayam-developer/stock-ai
 
@@ -15,25 +24,25 @@ The repository includes:
 
 Full frontend and backend source code
 
-Screenshots
+## Images of Application
 
 Example:
 
-1. Home Page
+## 1. Home Page
 ![alt text](<Screenshot (132).png>)
 
-2. Stock Dashboard
+## 2. Stock Dashboard
 ![alt text](<Screenshot (133).png>)
 
- 3. News Section
+ ## 3. News Section
  ![alt text](<Screenshot (134).png>)
 
-4. Generated Video Player
+## 4. Generated Video Player
 ![alt text](<Screenshot (135).png>)
 
-Tech Stack [Full Stack]
+## Tech Stack [Full Stack]
 
-1. Frontend
+## 1. Frontend
 
 React
 
@@ -45,7 +54,7 @@ Chart.js / Recharts
 
 Tailwind / CSS
 
-2. Backend
+## 2. Backend
 
 Node.js
 
@@ -57,7 +66,7 @@ Groq LLM for AI summaries and Text-to-Speech
 
 Remotion for video generation
 
-Deployment
+## Deployment
 
 1. Frontend: Vercel
 
@@ -65,26 +74,22 @@ Deployment
 
 3. UptimeRobot - keep server alive 
 
-APIs Used to Fetch Data
+## APIs Used to Fetch Data
 
-Stock Market Data
+1. Stock Market Data
 
-1. Yahoo Finance 
+## Yahoo Finance 
 
 2. Financial News
 
-GNews API
+## GNews API
 
-https://gnews.io
+3. LLM Model
 
-3. AI Model
+## Groq LLM
 
-Groq LLM
-
-Used to generate stock explanation summaries and Text-to-Speech
-
-Setup instructions
-Environment Variables
+## Setup instructions
+## Environment Variables
 
 Create .env inside backend
 
@@ -94,12 +99,12 @@ GROQ_API_KEY=your_api_key
 
 Local Setup
 
-Clone the repository
+## Clone the repository
 
 git clone https://github.com/swayam-developer/stock-ai.git
 cd stock-ai
 
-Install backend dependencies
+## Install backend dependencies
 
 cd backend
 npm install
@@ -110,15 +115,15 @@ Run frontend
 npm install
 npm run dev
 
-Frontend runs at
+## Frontend runs at
 
 http://localhost:5173
 
-Backend runs at
+## Backend runs at
 
 http://localhost:5000
 
-Future Improvements
+## Future Improvements
 
 1. Real-time stock streaming
 
